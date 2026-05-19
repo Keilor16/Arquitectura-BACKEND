@@ -1,4 +1,4 @@
-﻿using Arquitectura_BACKEND.BookStore.application.dtos.requests;
+using Arquitectura_BACKEND.BookStore.application.dtos.requests;
 using Arquitectura_BACKEND.BookStore.application.dtos.responses;
 using Arquitectura_BACKEND.BookStore.application.interfaces.services;
 using Arquitectura_BACKEND.BookStore.domain.contracts;
@@ -21,48 +21,33 @@ namespace Arquitectura_BACKEND.BookStore.application.services
         {
             var books = await _bookRepository.GetAllAsync();
 
-            return books.Select(book => new BookResponse
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Author = book.Author,
-                Price = book.Price
-            }).ToList();
+            return books.Select(MapToResponse).ToList();
         }
 
-        public async Task<BookResponse?> GetByIdAsync(Guid id)
+        public async Task<BookResponse?> GetByIdAsync(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
 
             if (book == null)
                 return null;
 
-            return new BookResponse
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Author = book.Author,
-                Price = book.Price
-            };
+            return MapToResponse(book);
         }
 
-        public async Task CreateAsync(
-            CreateBookRequest request
-        )
+        public async Task CreateAsync(CreateBookRequest request)
         {
             var book = new Book(
                 request.Title,
                 request.Author,
-                request.Price
+                request.ISBN,
+                request.Price,
+                request.Stock
             );
 
             await _bookRepository.CreateAsync(book);
         }
 
-        public async Task UpdateAsync(
-            Guid id,
-            UpdateBookRequest request
-        )
+        public async Task UpdateAsync(int id, UpdateBookRequest request)
         {
             var book = await _bookRepository.GetByIdAsync(id);
 
@@ -72,20 +57,39 @@ namespace Arquitectura_BACKEND.BookStore.application.services
             book.Update(
                 request.Title,
                 request.Author,
-                request.Price
+                request.ISBN,
+                request.Price,
+                request.Stock
             );
 
             await _bookRepository.UpdateAsync(book);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
 
             if (book == null)
                 throw new Exception("Book not found");
 
-            await _bookRepository.DeleteAsync(book);
+            await _bookRepository.DeleteAsync(id);
         }
+
+        public async Task<List<BookResponse>> GetTop3CheapestBooksAsync()
+        {
+            var books = await _bookRepository.GetTop3CheapestBooksAsync();
+
+            return books.Select(MapToResponse).ToList();
+        }
+
+        private static BookResponse MapToResponse(Book book) => new BookResponse
+        {
+            BookId = book.BookId,
+            Title = book.Title,
+            Author = book.Author,
+            ISBN = book.ISBN,
+            Price = book.Price,
+            Stock = book.Stock
+        };
     }
 }

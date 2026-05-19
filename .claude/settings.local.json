@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\fuent\\\\Desktop\\\\Ingenieria\\\\Tarea-2\\\\Backend\\\\Arquitectura-BACKEND\\\\BookStore\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(ConvertTo-Csv -NoTypeInformation)",
+      "Bash(Select-Object -Skip 1)"
+    ]
+  }
+}

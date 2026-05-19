@@ -1,4 +1,4 @@
-﻿using Arquitectura_BACKEND.BookStore.application.dtos.requests;
+using Arquitectura_BACKEND.BookStore.application.dtos.requests;
 using Arquitectura_BACKEND.BookStore.application.dtos.responses;
 
 namespace Arquitectura_BACKEND.BookStore.application.interfaces.services
@@ -7,15 +7,17 @@ namespace Arquitectura_BACKEND.BookStore.application.interfaces.services
     {
         Task<List<BookResponse>> GetAllAsync();
 
-        Task<BookResponse?> GetByIdAsync(Guid id);
+        Task<BookResponse?> GetByIdAsync(int id);
 
         Task CreateAsync(CreateBookRequest request);
 
         Task UpdateAsync(
-            Guid id,
+            int id,
             UpdateBookRequest request
         );
 
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(int id);
+
+        Task<List<BookResponse>> GetTop3CheapestBooksAsync();
     }
 }

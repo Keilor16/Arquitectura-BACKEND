@@ -1,4 +1,4 @@
-﻿using Arquitectura_BACKEND.BookStore.application.dtos.requests;
+using Arquitectura_BACKEND.BookStore.application.dtos.requests;
 using Arquitectura_BACKEND.BookStore.application.interfaces.services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +10,7 @@ namespace Arquitectura_BACKEND.BookStore.api.controllers
     {
         private readonly IBookService _bookService;
 
-        public BooksController(
-            IBookService bookService
-        )
+        public BooksController(IBookService bookService)
         {
             _bookService = bookService;
         }
@@ -25,8 +23,8 @@ namespace Arquitectura_BACKEND.BookStore.api.controllers
             return Ok(books);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById(int id)
         {
             var book = await _bookService.GetByIdAsync(id);
 
@@ -37,32 +35,35 @@ namespace Arquitectura_BACKEND.BookStore.api.controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(
-            CreateBookRequest request
-        )
+        public async Task<IActionResult> Create(CreateBookRequest request)
         {
             await _bookService.CreateAsync(request);
 
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(
-            Guid id,
-            UpdateBookRequest request
-        )
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, UpdateBookRequest request)
         {
             await _bookService.UpdateAsync(id, request);
 
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
         {
             await _bookService.DeleteAsync(id);
 
             return NoContent();
+        }
+
+        [HttpGet("cheapest")]
+        public async Task<IActionResult> GetTop3Cheapest()
+        {
+            var books = await _bookService.GetTop3CheapestBooksAsync();
+
+            return Ok(books);
         }
     }
 }

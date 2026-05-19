@@ -1,8 +1,8 @@
-﻿using Arquitectura_BACKEND.BookStore.domain.contracts;
+using System.Data;
+using Arquitectura_BACKEND.BookStore.domain.contracts;
 using Arquitectura_BACKEND.BookStore.domain.entities;
 using Arquitectura_BACKEND.BookStore.infrastructure.Persistance.connection;
 using Microsoft.Data.SqlClient;
-
 
 namespace Arquitectura_BACKEND.BookStore.infrastructure.Persistance.repositories
 {
@@ -10,9 +10,7 @@ namespace Arquitectura_BACKEND.BookStore.infrastructure.Persistance.repositories
     {
         private readonly SqlServerConnection _connection;
 
-        public BookRepository(
-            SqlServerConnection connection
-        )
+        public BookRepository(SqlServerConnection connection)
         {
             _connection = connection;
         }
@@ -22,19 +20,10 @@ namespace Arquitectura_BACKEND.BookStore.infrastructure.Persistance.repositories
             var books = new List<Book>();
 
             using var connection = _connection.CreateConnection();
-
-            string query = @"
-            SELECT
-                Id,
-                Title,
-                Author,
-                Price
-            FROM Books";
-
-            using var command = new SqlCommand(
-                query,
-                connection
-            );
+            using var command = new SqlCommand("SP_GetAllBooks", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
             await connection.OpenAsync();
 
@@ -42,60 +31,28 @@ namespace Arquitectura_BACKEND.BookStore.infrastructure.Persistance.repositories
 
             while (await reader.ReadAsync())
             {
-                var book = new Book(
-                    reader["Title"].ToString()!,
-                    reader["Author"].ToString()!,
-                    Convert.ToDecimal(reader["Price"])
-                );
-
-                book.SetId(
-                    Guid.Parse(reader["Id"].ToString()!)
-                );
-
-                books.Add(book);
+                books.Add(MapReader(reader));
             }
 
             return books;
         }
 
-        public async Task<Book?> GetByIdAsync(Guid id)
+        public async Task<Book?> GetByIdAsync(int id)
         {
             using var connection = _connection.CreateConnection();
+            using var command = new SqlCommand("SP_GetBookById", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-            string query = @"
-            SELECT
-                Id,
-                Title,
-                Author,
-                Price
-            FROM Books
-            WHERE Id = @Id";
-
-            using var command = new SqlCommand(
-                query,
-                connection
-            );
-
-            command.Parameters.AddWithValue("@Id", id);
+            command.Parameters.AddWithValue("@BookId", id);
 
             await connection.OpenAsync();
 
             using var reader = await command.ExecuteReaderAsync();
 
             if (await reader.ReadAsync())
-            {
-                var book = new Book(
-                    reader["Title"].ToString()!,
-                    reader["Author"].ToString()!,
-                    Convert.ToDecimal(reader["Price"])
-                );
-
-                book.SetId(
-                    Guid.Parse(reader["Id"].ToString()!)
-                );
-
-                return book;
-            }
+                return MapReader(reader);
 
             return null;
         }
@@ -103,110 +60,89 @@ namespace Arquitectura_BACKEND.BookStore.infrastructure.Persistance.repositories
         public async Task CreateAsync(Book book)
         {
             using var connection = _connection.CreateConnection();
+            using var command = new SqlCommand("SP_CreateBook", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-            string query = @"
-            INSERT INTO Books
-            (
-                Id,
-                Title,
-                Author,
-                Price
-            )
-            VALUES
-            (
-                @Id,
-                @Title,
-                @Author,
-                @Price
-            )";
-
-            using var command = new SqlCommand(
-                query,
-                connection
-            );
-
-            command.Parameters.AddWithValue("@Id", book.Id);
-
-            command.Parameters.AddWithValue(
-                "@Title",
-                book.Title
-            );
-
-            command.Parameters.AddWithValue(
-                "@Author",
-                book.Author
-            );
-
-            command.Parameters.AddWithValue(
-                "@Price",
-                book.Price
-            );
+            command.Parameters.AddWithValue("@Title", book.Title);
+            command.Parameters.AddWithValue("@Author", book.Author);
+            command.Parameters.AddWithValue("@ISBN", book.ISBN);
+            command.Parameters.AddWithValue("@Price", book.Price);
+            command.Parameters.AddWithValue("@Stock", book.Stock);
 
             await connection.OpenAsync();
-
             await command.ExecuteNonQueryAsync();
         }
 
         public async Task UpdateAsync(Book book)
         {
             using var connection = _connection.CreateConnection();
+            using var command = new SqlCommand("SP_UpdateBook", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-            string query = @"
-            UPDATE Books
-            SET
-                Title = @Title,
-                Author = @Author,
-                Price = @Price
-            WHERE Id = @Id";
-
-            using var command = new SqlCommand(
-                query,
-                connection
-            );
-
-            command.Parameters.AddWithValue("@Id", book.Id);
-
-            command.Parameters.AddWithValue(
-                "@Title",
-                book.Title
-            );
-
-            command.Parameters.AddWithValue(
-                "@Author",
-                book.Author
-            );
-
-            command.Parameters.AddWithValue(
-                "@Price",
-                book.Price
-            );
+            command.Parameters.AddWithValue("@BookId", book.BookId);
+            command.Parameters.AddWithValue("@Title", book.Title);
+            command.Parameters.AddWithValue("@Author", book.Author);
+            command.Parameters.AddWithValue("@ISBN", book.ISBN);
+            command.Parameters.AddWithValue("@Price", book.Price);
+            command.Parameters.AddWithValue("@Stock", book.Stock);
 
             await connection.OpenAsync();
-
             await command.ExecuteNonQueryAsync();
         }
 
-        public async Task DeleteAsync(Book book)
+        public async Task DeleteAsync(int id)
         {
             using var connection = _connection.CreateConnection();
+            using var command = new SqlCommand("SP_DeleteBook", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-            string query = @"
-            DELETE FROM Books
-            WHERE Id = @Id";
+            command.Parameters.AddWithValue("@BookId", id);
 
-            using var command = new SqlCommand(
-                query,
-                connection
-            );
+            await connection.OpenAsync();
+            await command.ExecuteNonQueryAsync();
+        }
 
-            command.Parameters.AddWithValue(
-                "@Id",
-                book.Id
-            );
+        public async Task<List<Book>> GetTop3CheapestBooksAsync()
+        {
+            var books = new List<Book>();
+
+            using var connection = _connection.CreateConnection();
+            using var command = new SqlCommand("SP_GetTop3CheapestBooks", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
             await connection.OpenAsync();
 
-            await command.ExecuteNonQueryAsync();
+            using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                books.Add(MapReader(reader));
+            }
+
+            return books;
+        }
+
+        private static Book MapReader(SqlDataReader reader)
+        {
+            var book = new Book(
+                reader["Title"].ToString()!,
+                reader["Author"].ToString()!,
+                reader["ISBN"].ToString()!,
+                Convert.ToDecimal(reader["Price"]),
+                Convert.ToInt32(reader["Stock"])
+            );
+
+            book.SetId(Convert.ToInt32(reader["BookId"]));
+
+            return book;
         }
     }
 }

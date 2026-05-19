@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Arquitectura-BACKEND")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e047e85b71da1ad9870efeeb9b6e0e2294588eb0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51ebb111861c73259c0a6787889fb5aa246f106c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Arquitectura-BACKEND")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Arquitectura-BACKEND")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
