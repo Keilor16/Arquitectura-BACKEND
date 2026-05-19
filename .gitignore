@@ -2,7 +2,7 @@
 bin/
 obj/
 
-# Archivos de usuario y caché Tifanny
+# Archivos de usuario y caché Tifanny2
 *.user
 *.userosscache
 *.sln.docstates
