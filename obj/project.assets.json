@@ -880,23 +880,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fuent\\.nuget\\packages\\": {},
+    "C:\\Users\\tifbr\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fuent\\Desktop\\Ingenieria\\Tarea-2\\Backend\\Arquitectura-BACKEND\\Arquitectura-BACKEND.csproj",
+      "projectUniqueName": "C:\\Users\\tifbr\\Desktop\\Ingenieria\\Tarea2\\Arquitectura-BACKEND\\Arquitectura-BACKEND.csproj",
       "projectName": "Arquitectura-BACKEND",
-      "projectPath": "C:\\Users\\fuent\\Desktop\\Ingenieria\\Tarea-2\\Backend\\Arquitectura-BACKEND\\Arquitectura-BACKEND.csproj",
-      "packagesPath": "C:\\Users\\fuent\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fuent\\Desktop\\Ingenieria\\Tarea-2\\Backend\\Arquitectura-BACKEND\\obj\\",
+      "projectPath": "C:\\Users\\tifbr\\Desktop\\Ingenieria\\Tarea2\\Arquitectura-BACKEND\\Arquitectura-BACKEND.csproj",
+      "packagesPath": "C:\\Users\\tifbr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tifbr\\Desktop\\Ingenieria\\Tarea2\\Arquitectura-BACKEND\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\fuent\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tifbr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
