@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Guid",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -51,7 +51,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Guid",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
@@ -72,10 +72,20 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Guid",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Arquitectura_BACKEND.BookStore.api.controllers.BooksController",
+    "Method": "GetTop3Cheapest",
+    "RelativePath": "api/Books/cheapest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

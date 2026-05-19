@@ -66,8 +66,9 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -87,8 +88,9 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -128,10 +130,23 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Books/cheapest": {
+      "get": {
+        "tags": [
+          "Books"
         ],
         "responses": {
           "200": {
@@ -152,6 +167,9 @@
           "author": {
             "type": "string"
           },
+          "isbn": {
+            "type": "string"
+          },
           "price": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "type": [
@@ -159,6 +177,14 @@
               "string"
             ],
             "format": "double"
+          },
+          "stock": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
           }
         }
       },
@@ -171,6 +197,9 @@
           "author": {
             "type": "string"
           },
+          "isbn": {
+            "type": "string"
+          },
           "price": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "type": [
@@ -178,6 +207,14 @@
               "string"
             ],
             "format": "double"
+          },
+          "stock": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
           }
         }
       }
