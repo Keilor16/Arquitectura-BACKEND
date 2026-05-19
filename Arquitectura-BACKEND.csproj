@@ -22,9 +22,6 @@
     <Folder Include="BookStore\application\adapters\" />
     <Folder Include="BookStore\application\workflows\" />
     <Folder Include="BookStore\application\services\" />
-    <Folder Include="BookStore\domain\entities\" />
-    <Folder Include="BookStore\domain\contracts\" />
-    <Folder Include="BookStore\domain\base\" />
     <Folder Include="BookStore\domain\domainServices\" />
     <Folder Include="BookStore\domain\specifications\" />
     <Folder Include="BookStore\infrastructure\externalServices\" />
