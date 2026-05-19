@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BookStore\api\controllers\" />
     <Folder Include="BookStore\api\middlewares\" />
     <Folder Include="BookStore\api\filters\" />
     <Folder Include="BookStore\application\adapters\" />

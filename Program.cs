@@ -1,3 +1,8 @@
+using Arquitectura_BACKEND.BookStore.application.interfaces.services;
+using Arquitectura_BACKEND.BookStore.application.services;
+using Arquitectura_BACKEND.BookStore.domain.contracts;
+using Arquitectura_BACKEND.BookStore.infrastructure.Persistance.connection;
+using Arquitectura_BACKEND.BookStore.infrastructure.Persistance.repositories;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +17,12 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<SqlServerConnection>();
+
+builder.Services.AddScoped<IBookService, BookService>();
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 var app = builder.Build();
 
