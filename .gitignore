@@ -1,7 +1,9 @@
-[Bb]in/
-[Oo]bj/
+# Carpetas de compilación de Visual Studio
+bin/
+obj/
 
-.vs/
+# Archivos de usuario y caché
 *.user
 *.userosscache
 *.sln.docstates
+.vs/
