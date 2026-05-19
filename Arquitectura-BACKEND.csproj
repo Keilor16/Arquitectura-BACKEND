@@ -11,11 +11,8 @@
     <Folder Include="BookStore\api\controllers\" />
     <Folder Include="BookStore\api\middlewares\" />
     <Folder Include="BookStore\api\filters\" />
-    <Folder Include="BookStore\application\dtos\" />
-    <Folder Include="BookStore\application\interfaces\" />
     <Folder Include="BookStore\application\adapters\" />
     <Folder Include="BookStore\application\workflows\" />
-    <Folder Include="BookStore\application\services\" />
     <Folder Include="BookStore\domain\domainServices\" />
     <Folder Include="BookStore\domain\specifications\" />
     <Folder Include="BookStore\infrastructure\externalServices\" />
