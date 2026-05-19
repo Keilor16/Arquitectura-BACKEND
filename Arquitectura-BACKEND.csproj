@@ -9,11 +9,29 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.14.14" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="BookStore\api\controllers\" />
+    <Folder Include="BookStore\api\middlewares\" />
+    <Folder Include="BookStore\api\filters\" />
+    <Folder Include="BookStore\application\dtos\" />
+    <Folder Include="BookStore\application\interfaces\" />
+    <Folder Include="BookStore\application\adapters\" />
+    <Folder Include="BookStore\application\workflows\" />
+    <Folder Include="BookStore\application\services\" />
+    <Folder Include="BookStore\domain\entities\" />
+    <Folder Include="BookStore\domain\contracts\" />
+    <Folder Include="BookStore\domain\base\" />
+    <Folder Include="BookStore\domain\domainServices\" />
+    <Folder Include="BookStore\domain\specifications\" />
+    <Folder Include="BookStore\infrastructure\externalServices\" />
+    <Folder Include="BookStore\infrastructure\dependencyInjection\" />
+    <Folder Include="BookStore\infrastructure\Persistance\connection\" />
+    <Folder Include="BookStore\infrastructure\Persistance\queries\" />
+    <Folder Include="BookStore\infrastructure\Persistance\repositories\" />
   </ItemGroup>
 
 </Project>
